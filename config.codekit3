@@ -50,6 +50,22 @@
       "oAP" : "\/docs\/.gitignore",
       "oF" : 0
     },
+    "\/source\/.index.pug.swp" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/docs\/.index.pug.swp",
+      "oF" : 0
+    },
+    "\/source\/.main.sass.swp" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/docs\/.main.sass.swp",
+      "oF" : 0
+    },
     "\/source\/card_generator.js" : {
       "bF" : 0,
       "ft" : 64,
