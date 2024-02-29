@@ -1,0 +1,237 @@
+h1, h2, h3, p, div, a, input, label {
+  font-family: "Pangolin", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #87A96B;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+[class^=menu-] {
+  margin-bottom: 12px;
+}
+[class^=menu-] .prompt {
+  margin-bottom: 4px;
+}
+
+.game-options {
+  user-select: none;
+}
+
+.menu-bg-color .radio {
+  display: flex;
+  width: 120px;
+}
+.menu-bg-color .radio label {
+  display: block;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.menu-bg-color .radio .bubble {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+.menu-bg-color .radio input {
+  display: none;
+}
+.menu-bg-color .radio input[value=yellow] ~ .bubble {
+  background: rgb(254, 207, 83);
+}
+.menu-bg-color .radio input[value=green] ~ .bubble {
+  background: #87A96B;
+}
+.menu-bg-color .radio input[value=gray] ~ .bubble {
+  background: #CACACA;
+}
+.menu-bg-color .radio input:checked ~ .bubble {
+  border: black 2px solid;
+}
+
+.menu-difficulty label {
+  display: block;
+  cursor: pointer;
+}
+.menu-difficulty .checkbox {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  margin-right: 6px;
+}
+.menu-difficulty input {
+  display: none;
+}
+.menu-difficulty input:checked ~ .checkbox {
+  background: black;
+}
+
+.instructions {
+  display: none;
+}
+
+.howto .title {
+  cursor: pointer;
+}
+.howto .title .hide {
+  display: none;
+}
+
+#instructions-toggle {
+  display: none;
+}
+
+#instructions-toggle:checked ~ .title .show {
+  display: none;
+}
+#instructions-toggle:checked ~ .title .hide {
+  display: inline;
+}
+#instructions-toggle:checked ~ .instructions {
+  display: block;
+}
+
+.turn-indicator {
+  width: 100%;
+  margin: 30px auto;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
+  color: rgb(126, 114, 105);
+}
+.turn-indicator div {
+  margin: 0 20px;
+  transition: all ease 0.5s;
+}
+.turn-indicator .current {
+  transform: scale(1.3);
+  color: black;
+}
+
+.timer {
+  width: 80%;
+  height: 6px;
+  background: whitesmoke;
+  margin: 40px auto;
+  position: relative;
+  padding: 4px;
+}
+
+.inner-bar {
+  height: 100%;
+  width: 100%;
+  background: rgb(252, 70, 57);
+}
+
+@keyframes timer {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+.card {
+  margin: 0 auto;
+  width: 220px;
+  height: 300px;
+  border-radius: 16px;
+  border: whitesmoke 8px solid;
+  font-size: 32px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.card .card-top, .card .card-bottom {
+  width: 100%;
+  position: relative;
+}
+.card .word {
+  line-height: 2;
+  width: 100%;
+  position: absolute;
+}
+.card .points {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  position: absolute;
+  left: calc(50% - 20px);
+}
+
+.card-top {
+  color: rgb(252, 70, 57);
+  background: whitesmoke;
+  height: 48%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.card-top .word {
+  bottom: 4%;
+}
+.card-top .points {
+  top: 8px;
+  background: rgb(252, 70, 57);
+  color: whitesmoke;
+}
+
+.card-bottom {
+  color: whitesmoke;
+  background: rgb(252, 70, 57);
+  height: 52%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.card-bottom .word {
+  top: 10%;
+}
+.card-bottom .points {
+  bottom: 8px;
+  background: whitesmoke;
+  color: rgb(252, 70, 57);
+}
+
+input[type=button] {
+  color: whitesmoke;
+  background: rgb(126, 114, 105);
+  border: whitesmoke 2px solid;
+  border-radius: 4px;
+}
+
+.turn-tally {
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  max-width: 500px;
+  margin: 0 auto 40px;
+}
+.turn-tally h2 {
+  margin: 0 10px 20px;
+}
+.turn-tally .bucket {
+  width: 26%;
+  text-align: center;
+}
+.turn-tally span {
+  text-decoration: underline;
+}
+
+#draw-button {
+  width: 100px;
+  height: 40px;
+  font-size: 24px;
+  border-width: 4px;
+  border-radius: 8px;
+  margin: 40px auto 20px;
+  display: block;
+}
