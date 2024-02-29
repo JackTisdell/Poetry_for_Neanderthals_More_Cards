@@ -17,6 +17,12 @@
       "oAP" : "\/docs\/.gitattributes",
       "oF" : 0
     },
+    "\/docs" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/docs\/docs",
+      "oF" : 0
+    },
     "\/README.md" : {
       "cB" : 0,
       "cS" : 0,
@@ -35,6 +41,14 @@
       "pME" : 1,
       "rFN" : 0,
       "uCM" : 0
+    },
+    "\/source\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/docs\/.gitignore",
+      "oF" : 0
     },
     "\/source\/card_generator.js" : {
       "bF" : 0,
@@ -96,7 +110,7 @@
     "displayValueWasSetByUser" : 0,
     "iconImageName" : "brackets-payne",
     "iconImageWasSetByUser" : 0,
-    "lastBuiltDate" : 730929584.60299003
+    "lastBuiltDate" : 730929710.36596704
   },
   "projectSettings" : {
     "abortBuildOnError" : 1,
