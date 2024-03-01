@@ -69,7 +69,7 @@ function advance(points) {
     displayCard(currentCard);
 }
 
-const turnDuration = 120;
+const turnDuration = 90;
 function startTurn() {
 
     turnScore.flops = [];

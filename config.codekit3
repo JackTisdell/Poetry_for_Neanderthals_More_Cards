@@ -17,14 +17,6 @@
       "oAP" : "\/docs\/.gitattributes",
       "oF" : 0
     },
-    "\/.README.md.swp" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/docs\/.README.md.swp",
-      "oF" : 0
-    },
     "\/docs" : {
       "ft" : 65536,
       "oA" : 1,
@@ -56,14 +48,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/docs\/.gitignore",
-      "oF" : 0
-    },
-    "\/source\/.index.pug.swp" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/docs\/.index.pug.swp",
       "oF" : 0
     },
     "\/source\/card_generator.js" : {
