@@ -1,3 +1,4 @@
+@charset "UTF-8";
 h1, h2, h3, p, div, a, input, label {
   font-family: "Pangolin", sans-serif;
 }
@@ -101,7 +102,8 @@ body {
 }
 
 .turn-indicator {
-  width: 100%;
+  user-select: none;
+  width: 90%;
   margin: 30px auto;
   max-width: 600px;
   display: flex;
@@ -111,13 +113,28 @@ body {
   text-align: center;
   color: rgb(126, 114, 105);
 }
-.turn-indicator div {
-  margin: 0 20px;
-  transition: all ease 0.5s;
-}
 .turn-indicator .current {
   transform: scale(1.3);
   color: black;
+}
+.turn-indicator div {
+  margin: 0;
+  transition: all ease 0.5s;
+}
+.turn-indicator .score {
+  display: flex;
+  justify-content: space-between;
+}
+.turn-indicator .down:after, .turn-indicator .up:after {
+  display: block;
+  content: "‣";
+  cursor: pointer;
+}
+.turn-indicator .down:after {
+  transform: rotate(90deg) scale(1.2);
+}
+.turn-indicator .up:after {
+  transform: rotate(-90deg) scale(1.2);
 }
 
 .timer {
@@ -144,6 +161,8 @@ body {
   }
 }
 .card {
+  user-select: none;
+  cursor: pointer;
   margin: 0 auto;
   width: 220px;
   height: 300px;
@@ -152,6 +171,7 @@ body {
   font-size: 32px;
   text-align: center;
   text-transform: uppercase;
+  position: relative;
 }
 .card .card-top, .card .card-bottom {
   width: 100%;
@@ -168,6 +188,15 @@ body {
   border-radius: 20px;
   position: absolute;
   left: calc(50% - 20px);
+}
+.card .start-turn {
+  height: 100%;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+}
+.card .start-turn .prompt {
+  margin-top: 108px;
 }
 
 .card-top {
@@ -202,13 +231,6 @@ body {
   color: rgb(252, 70, 57);
 }
 
-input[type=button] {
-  color: whitesmoke;
-  background: rgb(126, 114, 105);
-  border: whitesmoke 2px solid;
-  border-radius: 4px;
-}
-
 .turn-tally {
   display: flex;
   justify-content: space-between;
@@ -227,7 +249,16 @@ input[type=button] {
   text-decoration: underline;
 }
 
-#draw-button {
+.button-container {
+  text-align: center;
+  box-sizing: border-box;
+  line-height: 34px;
+  user-select: none;
+  cursor: pointer;
+  color: whitesmoke;
+  background: rgb(126, 114, 105);
+  border: whitesmoke 2px solid;
+  border-radius: 4px;
   width: 100px;
   height: 40px;
   font-size: 24px;
@@ -235,4 +266,11 @@ input[type=button] {
   border-radius: 8px;
   margin: 40px auto 20px;
   display: block;
+  position: relative;
+}
+.button-container .start-turn {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }

@@ -1,13 +1,17 @@
 const compounds = [];
+const turnDuration = 7;//90;
+const primingTime = 2000;   // time (in ms) after turn before next turn is 'primed', misclicks in this window will not start the next turn
+const graceWindow = 500;    // grace period (in ms) after turn clock where play is still active
 const options = {
-    difficulty: 1
+    difficulty: 1,  // set by user, 0 excludes rare compounds, 1 uses full deck, 2 uses only rare compounds
 };
 let i = 0;
 let currentCard = undefined;
 let currentTeam = -1;
+let primed = true;
 const turnScore = {flops: [], ones: [], threes: []};
-const madScore = {flops: 0, ones: 0, threes: 0};
-const gladScore = {flops: 0, ones: 0, threes: 0};
+const madScore = {flops: 0, ones: 0, threes: 0, adjustments: 0};
+const gladScore = {flops: 0, ones: 0, threes: 0, adjustments: 0};
 
 $(document).ready(function() {
 
@@ -18,16 +22,20 @@ $(document).ready(function() {
     const numCmpds = compounds.length;
 
 
+    $('.start-turn').on('click', () => {
+        if (primed) {startTurn();}
+    });
+
     $('#draw-button').on('click', () => advance(-1));
     $('.card-top').on('click', () => advance(1));
     $('.card-bottom').on('click', () => advance(3));
 
-            
-
-
+    $('.mad .down').on('click', () => {--madScore.adjustments; updateScores();});
+    $('.mad .up').on('click', () => {++madScore.adjustments; updateScores();});
+    $('.glad .down').on('click', () => {--gladScore.adjustments; updateScores();});
+    $('.glad .up').on('click', () => {++gladScore.adjustments; updateScores();});
 
     // set options from user input
-
     changeDifficulty();
     changeBgColor();
 
@@ -60,17 +68,15 @@ function shuffle(array) {
 }
 
 function advance(points) {
-    if (!currentCard) {
-        startTurn();
-    } else {
-        tally(currentCard, points);
-        currentCard = drawCard();
-    }
+    if (!currentCard) {return;}
+    tally(currentCard, points);
+    currentCard = drawCard();
     displayCard(currentCard);
 }
 
-const turnDuration = 90;
 function startTurn() {
+    $('.start-turn').css('display', 'none');
+    primed = false;
 
     turnScore.flops = [];
     turnScore.ones = [];
@@ -78,8 +84,9 @@ function startTurn() {
     $('.turn-tally .bucket div').remove();
 
     $('.inner-bar').css('animation', `timer ${turnDuration}s linear 0s none`);
-    $('#draw-button').prop('value', 'SKIP');
+    $('#draw-button').html('SKIP');
     currentCard = drawCard();
+    displayCard(currentCard);
     setTimeout( () => {
         currentTeam = -currentTeam;
         if (currentTeam < 0) {
@@ -97,18 +104,22 @@ function startTurn() {
         }
         updateScores();
 
-        currentCard = undefined;
-        displayCard(currentCard);
-        $('.inner-bar').css('animation', 'none');
-        $('#draw-button').prop('value', 'GO');
+        setTimeout( () => {
+            currentCard = undefined;
+            displayCard(currentCard);
+            $('.inner-bar').css('animation', 'none');
+            $('#draw-button').html('GO');
+            $('.start-turn').css('display', 'block');
+            setTimeout( () => {primed = true;}, primingTime);
+        }, graceWindow );
     }, turnDuration * 1000);
 }
 
 function updateScores() {
-    let madTotal = 3*madScore.threes + madScore.ones - madScore.flops;
-    let gladTotal = 3*gladScore.threes + gladScore.ones - gladScore.flops;
-    $('.mad .score').html(madTotal);
-    $('.glad .score').html(gladTotal);
+    let madTotal = 3*madScore.threes + madScore.ones - madScore.flops + madScore.adjustments;
+    let gladTotal = 3*gladScore.threes + gladScore.ones - gladScore.flops + gladScore.adjustments;
+    $('.mad .value').html(madTotal);
+    $('.glad .value').html(gladTotal);
 }
 
 function drawCard() {
@@ -116,7 +127,7 @@ function drawCard() {
     while (true) {
         cmpd = compounds[i++];
         // skips card if incorrectly parsed, plural, or profane
-        if (cmpd.correctParse === 'no' || cmpd.isPlural === '1' || cmpd.profanity_stim === '1') {
+        if (cmpd.correctParse === 'no' || cmpd.isPlural === '1' || cmpd.profanity_stim === 'TRUE') {
             continue;
         }
         if (options.difficulty === 0 && cmpd.isCommonstim === '0') {
@@ -180,7 +191,20 @@ function chooseConsituent(cmpd) {
     // in the LADEC database of compounds where both constituents are considered profane
     if (cmpd.profanity_c1 === 'TRUE') { return 2; }
     if (cmpd.profanity_c2 === 'TRUE') { return 1; }
-    // otherwise, flip a coin
+
+    // if exactly one consituent is common, return the common one
+    if (cmpd.isCommonC1 !== cmpd.isCommonC2) {
+        if (cmpd.isCommonC1 === '1') {return 1;}
+        return 2;
+    }
+
+    // if both (un)common, return the one in the smaller family
+    let fam1 = parseInt(cmpd.nc1_cmpnoplural);
+    let fam2 = parseInt(cmpd.nc2_cmpnoplural);
+    if (fam1 < fam2) {return 1;}
+    if (fam2 < fam1) {return 2;};
+
+    // if all else equal, flip a coin
     return Math.random() < 0.5 ? 1 : 2;
 }
 
