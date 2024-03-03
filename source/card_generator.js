@@ -1,5 +1,5 @@
 const compounds = [];
-const turnDuration = 7;//90;
+const turnDuration = 90;
 const primingTime = 2000;   // time (in ms) after turn before next turn is 'primed', misclicks in this window will not start the next turn
 const graceWindow = 500;    // grace period (in ms) after turn clock where play is still active
 const options = {
